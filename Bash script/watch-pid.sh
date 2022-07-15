@@ -1,2 +1,3 @@
 #/bin/bash
-watch -n 10 $1
+read -p "$: " command
+watch -n 10 $command
