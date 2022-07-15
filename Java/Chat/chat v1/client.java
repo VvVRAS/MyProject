@@ -44,7 +44,7 @@ private static boolean testServer(){
         System.out.println("\"/disconnect\"  => LogOut");
         command = sc.nextLine();
         testServer();
-        System.out.println(connect);////////////////////////////////////////////////////////////////////////////
+        System.out.println(connect);
         
         try{
             s = new Socket(IP, port);      
