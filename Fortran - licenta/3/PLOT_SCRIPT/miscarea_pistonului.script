@@ -1,0 +1,8 @@
+#set terminal postfile         
+#set output  "d1_plot.ps"
+set title "MISCAREA PISTONULUI"
+set title font "ARIAL,14"
+set xlabel "teta"
+set ylabel "Xp exact(teta); Xp aprox(teta)"
+plot "miscarea_pistonului.txt" using 1:2 w lines title "Xp exact(teta)", "miscarea_pistonului.txt" using 1:3 w linespoints ls 6 title "Xp aprox(teta)"
+pause -1 "Hit Enter to continue"

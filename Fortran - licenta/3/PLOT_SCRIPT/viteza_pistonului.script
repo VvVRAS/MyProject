@@ -1,0 +1,8 @@
+#set terminal postfile         
+#set output  "d1_plot.ps"
+set title "VITEZA PISTONULUI"
+set title font "ARIAL,14"
+set xlabel "RAC [grade]"
+set ylabel "VITEZA [m/s]"
+plot "viteza_pistonului.txt" using 1:2 w lines title "Xp exact(teta)"
+pause -1 "Hit Enter to continue"

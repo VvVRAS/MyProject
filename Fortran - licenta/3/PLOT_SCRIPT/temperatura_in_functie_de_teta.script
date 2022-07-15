@@ -1,0 +1,8 @@
+#set terminal postfile         
+#set output  "d1_plot.ps"
+set title "temperatura in functie de Teta"
+set title font "ARIAL,14"
+set ylabel "Temperatura[K]"
+set xlabel "Unghiul RAC [grd]"
+plot "temperaturi_in_functie_de_teta.txt" using 2:1 w lines title "T(teta)"
+pause -1 "Hit Enter to continue"

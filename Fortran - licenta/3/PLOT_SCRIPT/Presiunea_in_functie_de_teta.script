@@ -1,0 +1,8 @@
+#set terminal postfile         
+#set output  "d1_plot.ps"
+set title "Presiunea in functie de Teta"
+set title font "ARIAL,14"
+set xlabel "Presiune[BAR]"
+set ylabel "Unghiul RAC [grd]"
+plot "Presiunea_in_functie_de_teta.txt" using 2:1 w lines title "-", "teta_m_pm.txt" using 2:1 w linespoints ls 6 title "*"
+pause -1 "Hit Enter to continue"

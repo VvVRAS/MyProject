@@ -1,0 +1,8 @@
+#set terminal postfile         
+#set output  "d1_plot.ps"
+set title "Ciclul real"
+set title font "ARIAL,14"
+set ylabel "P(T, Teta)"
+set xlabel "V(T,Teta)"
+plot "ciclul_real_inchis.txt" using 2:1 w lines title "-"
+pause -1 "Hit Enter to continue"

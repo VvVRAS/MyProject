@@ -1,0 +1,8 @@
+#set terminal postfile         
+#set output  "d1_plot.ps"
+set title "Ciclul real deschis (fara admisie si evacuare)"
+set title font "ARIAL,14"
+set xlabel "P(T, Teta)"
+set ylabel "V(T,Teta)"
+plot "ciclul_real_deschis.txt" using 2:1 w lines title "-"
+pause -1 "Hit Enter to continue"

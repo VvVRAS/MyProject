@@ -1,0 +1,8 @@
+#set terminal postfile         
+#set output  "d1_plot.ps"
+set title "----"
+set title font "ARIAL,14"
+set ylabel "f_sigma(teta), norm(teta), k(teta), z(teta), tg(teta)"
+set xlabel "teta"
+plot "forte_piston.txt" using 6:1 w lines title "1", "forte_piston.txt" using 6:2 w lines title "2", "forte_piston.txt" using 6:3 w lines title "3",  "forte_piston.txt" using 6:4 w lines title "4", "forte_piston.txt" using 6:5 w lines title "5",
+pause -1 "Hit Enter to continue"

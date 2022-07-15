@@ -1,0 +1,10 @@
+#set terminal postfile         
+#set output  "d1_plot.ps"
+set title "ACCELERATIA PISTONULUI"
+set title font "ARIAL,14"
+set xlabel "RAC [grade]"
+set ylabel "ACCELERATIA [m/s]"
+plot "acceleratia_pistonului.txt" using 1:2 w lines title "ap(teta)", \
+"acceleratia_pistonului.txt" using 1:3 w lines title "ap2(teta)", \
+"acceleratia_pistonului.txt" using 1:4 w lines title "ap3(teta)",
+pause -1 "Hit Enter to continue"
