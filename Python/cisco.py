@@ -2,7 +2,7 @@ from netmiko import ConnectHandler
 
 cisco18 = ConnectHandler(
     device_type="cisco_ios",
-    host="192.168.10.101",
+    host="10.668.610.101",
     username="cisco",
     password="cisco1234",
 )
