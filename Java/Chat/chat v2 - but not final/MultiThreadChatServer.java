@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.ServerSocket;
 
-// A chat server that delivers public and private messages.
+// A chat server that delivers messages.
  
 public class MultiThreadChatServer {
 
@@ -16,7 +16,7 @@ public class MultiThreadChatServer {
   // client socket.
   private static Socket clientSocket = null;
 
-  // This chat server can accept up to maxClientsCount clients' connections.
+  // This chat server can accept up to maxClientsCount clients' connections. (10 clients)
   private static final int maxClientsCount = 10;
   private static final clientThread[] threads = new clientThread[maxClientsCount];
 
@@ -31,7 +31,7 @@ public class MultiThreadChatServer {
     } else {
       portNumber = Integer.valueOf(args[0]).intValue();
     }
-//------------------------------Server_Socket
+//------------------------------Server_Socket------------------------------------------------
     try {
       serverSocket = new ServerSocket(portNumber);
     } catch (IOException e) {
