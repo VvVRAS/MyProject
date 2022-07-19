@@ -31,18 +31,17 @@ import javax.crypto.NoSuchPaddingException;
 
 public class aes {
     private static String algorithm = "AES/CBC/PKCS5Padding";
-
-    //pentru stocaerea IV-ului este nevoie sa mai adaugam 16 biti la mesaj
+    
     //ciphertext_size (bytes) = cleartext_size + (16 - (cleartext_size % 16))
 
-    //cu generare de cheie cu ajutorul unui numar generat la intamplare
+    // Random key generator with random big integer number
     public static SecretKey generateKey(int n, String keyname) throws NoSuchAlgorithmException, IOException {
         String loc="Licenta//AES//Cheie//";
         loc=loc.concat(keyname);
         loc=loc.concat(".txt");
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(n);
-        SecretKey key = keyGenerator.generateKey();   ////////
+        SecretKey key = keyGenerator.generateKey();  
 
         FileOutputStream fos = new FileOutputStream(loc);
         fos.write(key.getEncoded());
@@ -50,7 +49,7 @@ public class aes {
         return key;
     }
 
-     //cu generare de cheie cu ajutorul unui numar generat la intamplare
+     //Save in memory random key generated
          
      public static SecretKey loadKey(String keyname) throws IOException {
 
@@ -66,7 +65,7 @@ public class aes {
         return key;
      }
      
-    //cu cheie definita
+    // save key file in memory
     public static SecretKey getKeyFromPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
@@ -88,7 +87,7 @@ public class aes {
         return originalKey;
     }
 
-    // paramertul IV
+    //  Generate Random Initialised vector (IV)
     public static IvParameterSpec generateIv(String ivName) throws IOException {
         
         String loc="Licenta//AES//IV//";
@@ -104,7 +103,8 @@ public class aes {
         
         return new IvParameterSpec(iv);
     }
-
+    
+    //Save random generated IV into memory
     public static IvParameterSpec loadIv(String ivName) throws IOException {
         
         String loc="Licenta//AES//IV//";
@@ -149,46 +149,46 @@ public class aes {
     String inputFile, String outputFile) throws IOException, NoSuchPaddingException,
     NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException,
     BadPaddingException, IllegalBlockSizeException {
-    Cipher cipher = Cipher.getInstance(algorithm);
-    cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-    FileInputStream inputStream = new FileInputStream(inputFile);
-    FileOutputStream outputStream = new FileOutputStream(outputFile);
-    byte[] buffer = new byte[64];
-    int bytesRead;
-    while ((bytesRead = inputStream.read(buffer)) != -1) {
-        byte[] output = cipher.update(buffer, 0, bytesRead);
-        if (output != null) {
-            outputStream.write(output);
+        Cipher cipher = Cipher.getInstance(algorithm);
+        cipher.init(Cipher.ENCRYPT_MODE, key, iv);
+        FileInputStream inputStream = new FileInputStream(inputFile);
+        FileOutputStream outputStream = new FileOutputStream(outputFile);
+        byte[] buffer = new byte[64];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byte[] output = cipher.update(buffer, 0, bytesRead);
+            if (output != null) {
+                outputStream.write(output);
+            }
         }
-    }
-    byte[] outputBytes = cipher.doFinal();
-    if (outputBytes != null) {
-        outputStream.write(outputBytes);
-    }
-    inputStream.close();
-    outputStream.close();
-}
+        byte[] outputBytes = cipher.doFinal();
+            if (outputBytes != null) {
+                outputStream.write(outputBytes);
+            }
+            inputStream.close();
+            outputStream.close();
+        }
 
-public static void decryptFile(String algorithm, SecretKey key, IvParameterSpec iv,
+    public static void decryptFile(String algorithm, SecretKey key, IvParameterSpec iv,
     String encryptedFile, String decryptedFile) throws IOException, NoSuchPaddingException,
     NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException,
     BadPaddingException, IllegalBlockSizeException {
-    Cipher cipher = Cipher.getInstance(algorithm);
-    cipher.init(Cipher.DECRYPT_MODE, key, iv);
-    FileInputStream inputStream = new FileInputStream(encryptedFile);
-    FileOutputStream outputStream = new FileOutputStream(decryptedFile);
-    byte[] buffer = new byte[64];
-    int bytesRead;
-    while ((bytesRead = inputStream.read(buffer)) != -1) {
-        byte[] output = cipher.update(buffer, 0, bytesRead);
-        if (output != null) {
-            outputStream.write(output);
+        Cipher cipher = Cipher.getInstance(algorithm);
+        cipher.init(Cipher.DECRYPT_MODE, key, iv);
+        FileInputStream inputStream = new FileInputStream(encryptedFile);
+        FileOutputStream outputStream = new FileOutputStream(decryptedFile);
+        byte[] buffer = new byte[64];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byte[] output = cipher.update(buffer, 0, bytesRead);
+                if (output != null) {
+                    outputStream.write(output);
+                }
+            }
         }
-    }
-}
+    
     public static void main(String[] args) throws NoSuchAlgorithmException, IllegalBlockSizeException, 
-    InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException, IOException { 
-      
+    InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException, IOException {   
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
 
@@ -215,7 +215,6 @@ public static void decryptFile(String algorithm, SecretKey key, IvParameterSpec 
         //key = aes.generateKey(keyByte);
         key = aes.loadKey(keyName);
         
-        
         //IvParameterSpec iv = aes.generateIv();
         IvParameterSpec iv = aes.loadIv(ivName);
 
@@ -236,10 +235,8 @@ public static void decryptFile(String algorithm, SecretKey key, IvParameterSpec 
         
         aes.decryptFile(algorithm, key, iv, encryptedFile, decryptedFile);
     
-
         String cKey = convertSecretKeyToString(key);
 
         System.out.println(cKey);
-        
     }
 }
